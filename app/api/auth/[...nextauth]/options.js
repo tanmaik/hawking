@@ -4,27 +4,31 @@ import { AuthOptions } from "next-auth";
 export const options = {
   providers: [
     CredentialsProvider({
+      id: "Credentials",
       name: "Credentials",
       credentials: {
         email: {
           label: "email",
-          type: "text",
-          placeholder: "stephen@cambridge.edu",
         },
         password: {
-          label: "Password",
-          type: "passowrd",
+          label: "password",
         },
       },
       async authorize(credentials, req) {
+        if (credentials?.newUser) {
+          //create new user account on backend server
+          // return user account
+        }
         if (
-          credentials?.email === "stephen@cambridge.edu" &&
+          // check user against server
+          credentials?.email === "tanmai@test.com" &&
           credentials.password === "admin"
         ) {
+          // return correct user account with uid
           return {
             id: "1",
-            name: "Stephen Hawking",
-            email: "stephen@cambridge.edu",
+            name: "Tanmai Kalisipudi",
+            email: "tanmai@test.com",
           };
         }
         return null;
@@ -37,6 +41,7 @@ export const options = {
   },
   pages: {
     signIn: "/api/auth/signin",
+    newUser: "/api/auth/signup",
   },
   secret: process.env.NEXTAUTH_SECRET,
   debug: true,
