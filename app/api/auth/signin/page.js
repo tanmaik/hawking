@@ -98,7 +98,7 @@ const SignIn = () => {
 
           <Link href="/api/auth/signup">
             <p className="mt-4 text-sm font-medium text-gray-400 w-full text-center">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <span className="text-blue-300">Register</span>
             </p>
           </Link>

@@ -178,7 +178,7 @@ const OnboardingThird = ({
   return (
     <div className="w-[26rem] text-2xl font-crimson font-semibold">
       <p className={crimson.className}>
-        We're here to support you in your learning journey.
+        We&apos;re here to support you in your learning journey.
       </p>
       <div className="h-2"></div>
       <p className={crimson.className}>What do you struggle most with?</p>

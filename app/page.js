@@ -56,7 +56,7 @@ export default function Home() {
         <div className="flex justify-center">
           <div className="w-[60rem] flex justify-between absolute top-4">
             <div>
-              <Image src={logo} width={15} className="ml-6" />
+              <Image src={logo} width={15} alt="Logo" className="ml-6" />
             </div>
             <Button
               asChild
