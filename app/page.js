@@ -18,9 +18,12 @@ export default function Home() {
   const [shownSummary, setShownSummary] = useState(null);
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
+  const [showUpload, setShowUpload] = useState(true);
 
-  const changeSummaryHandler = (sid) => {
+  const changeSummaryHandler = (sid, show) => {
     setShownSummary(sid);
+    setShowUpload(show);
+    console.log("changed summary");
   };
   useEffect(() => {
     const fetchUser = async () => {
@@ -77,7 +80,11 @@ export default function Home() {
           <div className="w-[60rem] flex justify-between px-6">
             <Sidebar changeSummary={changeSummaryHandler} />
 
-            {shownSummary ? <ShowSummary sid="sid" /> : <UploadBox changeSummary={changeSummaryHandler}/>}
+            {showUpload ? (
+              <UploadBox changeSummary={changeSummaryHandler} />
+            ) : (
+              <ShowSummary sid={shownSummary} />
+            )}
           </div>
         </div>
       </>

@@ -7,6 +7,7 @@ import { Crimson_Pro } from "next/font/google";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ArrowUpOnSquareIcon } from "@heroicons/react/24/solid";
 
 const crimson = Crimson_Pro({
   weight: "600",
@@ -17,11 +18,10 @@ const Sidebar = ({ changeSummary }) => {
   const [name, setName] = useState(null);
   const [pastSummaries, setPastSummaries] = useState([]);
   const [greeting, setGreeting] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
 
   const changeCurrentSummary = (sid) => {
-    changeSummary(sid);
+    changeSummary(sid, false);
   };
 
   const changePastSummariesHandler = (newSummary) => {
@@ -54,7 +54,7 @@ const Sidebar = ({ changeSummary }) => {
           url: "https://api.openai.com/v1/chat/completions",
           headers: {
             Authorization:
-              "Bearer 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",
+              "Bearer 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",
           },
           data: {
             model: "gpt-4",
@@ -75,7 +75,9 @@ const Sidebar = ({ changeSummary }) => {
         });
         return response.data;
       } catch (err) {
+        console.log("ERRORROEROEROERO");
         console.error(err);
+
         return null;
       }
     };
@@ -93,10 +95,8 @@ const Sidebar = ({ changeSummary }) => {
     };
 
     const fetchData = async () => {
-      setIsLoading(true);
       const userData = await fetchUser();
       const greetingData = await fetchGreeting();
-      console.log(greetingData);
       setGreeting(greetingData.choices[0].message.content);
       if (userData) {
         setName(userData.user.first);
@@ -113,16 +113,21 @@ const Sidebar = ({ changeSummary }) => {
       }
     };
     fetchData();
-    setIsLoading(false);
   }, [session.user.name]);
   return (
-    <div className="pr-4  w-[30rem]">
+    <div className="w-[15rem] pr-2">
       <div className={crimson.className}>
         <h2 className="text-3xl">
           {greeting}, {name}
         </h2>
       </div>
-      <h2 className="mt-6 font-semibold mb-3">Your summaries</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="mt-6 font-semibold mb-3">Your summaries</h2>
+        <div onClick={() => changeSummary(null, true)}>
+          <ArrowUpOnSquareIcon className="h-5 w-5 mt-6 mb-3 hover:cursor-pointer" />
+        </div>
+      </div>
+
       <div>
         {pastSummaries.map((summary) => {
           return (

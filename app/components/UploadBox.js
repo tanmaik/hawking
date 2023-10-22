@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { Progress } from "@/components/ui/progress";
 
-import { Skeleton } from "@/components/ui/skeleton";
 const UploadBox = ({ changeSummary }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(13);
@@ -22,9 +21,9 @@ const UploadBox = ({ changeSummary }) => {
           clearInterval(interval);
           return 100;
         }
-        return prevProgress + 5;
+        return prevProgress + 0.5;
       });
-    }, 4000);
+    }, 400);
     file = event.target.files[0];
     event.preventDefault();
     const formData = new FormData();
@@ -41,12 +40,12 @@ const UploadBox = ({ changeSummary }) => {
     );
     const data = await response.data;
     setIsLoading(false);
-    changeSummary(data.id);
+    changeSummary(data.id, false);
   };
   if (!isLoading) {
     return (
       <>
-        <div className="w-full px-6 rounded-lg border-[1px] hover:bg-gray-100 transition-all">
+        <div className="w-[40rem] rounded-lg border-[1px] hover:bg-gray-100 transition-all">
           <div className="h-full flex items-center justify-center">
             <input
               type="file"
@@ -72,7 +71,12 @@ const UploadBox = ({ changeSummary }) => {
       </>
     );
   } else {
-    return <Progress value={progress} />;
+    return (
+      <div className="w-[40rem] rounded-lg border-[1px] hover:bg-gray-100 transition-all">
+        <Progress progress={progress} />
+        <h2>Taking off! We are {progress}% of the way therE!</h2>
+      </div>
+    );
     // fix this skeleton component
   }
 };
