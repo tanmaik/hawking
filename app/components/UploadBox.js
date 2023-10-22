@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { Progress } from "@/components/ui/progress";
 import { useRouter } from "next/navigation";
+import { useSpring, animated } from "@react-spring/web";
 
 const UploadBox = ({ changeSummary }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +17,7 @@ const UploadBox = ({ changeSummary }) => {
 
   const submitFile = async (event) => {
     setIsLoading(true);
+    handleEvent();
     // start increasing progress bar
     const interval = setInterval(() => {
       setProgress((prevProgress) => {

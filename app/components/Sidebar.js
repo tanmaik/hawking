@@ -15,6 +15,7 @@ const crimson = Crimson_Pro({
 });
 
 const Sidebar = ({ changeSummary, shownSummary }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState(null);
   const [pastSummaries, setPastSummaries] = useState([]);
   const [greeting, setGreeting] = useState("");
@@ -94,6 +95,7 @@ const Sidebar = ({ changeSummary, shownSummary }) => {
     };
 
     const fetchData = async () => {
+      setIsLoading(true);
       const userData = await fetchUser();
       const greetingData = await fetchGreeting();
       setGreeting(greetingData.choices[0].message.content);
@@ -112,48 +114,60 @@ const Sidebar = ({ changeSummary, shownSummary }) => {
       }
     };
     fetchData();
+    setIsLoading(false);
   }, [session.user.name, shownSummary]);
-  return (
-    <div className="w-[15rem] pr-2">
-      <div className={crimson.className}>
-        <h2 className="text-3xl">
-          {greeting}, {name}
-        </h2>
-      </div>
-      <div className="flex justify-between items-center">
-        <h2 className="mt-6 font-semibold mb-3">Your summaries</h2>
-        <div onClick={() => changeSummary(null, true)}>
-          <ArrowUpOnSquareIcon className="h-5 w-5 mt-6 mb-3 hover:cursor-pointer" />
+
+  if (!isLoading) {
+    return (
+      <div className="w-[15rem] pr-2">
+        <div className={crimson.className}>
+          <h2 className="text-3xl">
+            {greeting}, {name}
+          </h2>
+        </div>
+        <div className="flex justify-between items-center">
+          <h2 className="mt-6 font-semibold mb-3">Your summaries</h2>
+          <div onClick={() => changeSummary(null, true)}>
+            <ArrowUpOnSquareIcon className="h-5 w-5 mt-6 mb-3 text-gray-500 hover:cursor-pointer" />
+          </div>
+        </div>
+
+        <div>
+          {pastSummaries.length !== 0 ? (
+            pastSummaries.map((summary) => {
+              return (
+                <Button
+                  asChild
+                  className="p-0 hover:cursor-pointer w-full flex items-start justify-start"
+                  variant="link"
+                  key={summary.id}
+                  onClick={() => {
+                    changeSummary(summary.id);
+                  }}
+                >
+                  <div className="flex items-center py-4 space-x-2">
+                    <Image
+                      src={summary.icon}
+                      alt="Summary icon"
+                      width={30}
+                      height={30}
+                    />
+                    <p>{summary.title}</p>
+                  </div>
+                </Button>
+              );
+            })
+          ) : (
+            <p className=" text-gray-400 font-medium text-sm">
+              You have no summaries
+            </p>
+          )}
         </div>
       </div>
-
-      <div>
-        {pastSummaries.map((summary) => {
-          return (
-            <Button
-              asChild
-              className="p-0 hover:cursor-pointer w-full flex items-start justify-start"
-              variant="link"
-              key={summary.id}
-              onClick={() => {
-                changeSummary(summary.id);
-              }}
-            >
-              <div className="flex items-center py-4 space-x-2">
-                <Image
-                  src={summary.icon}
-                  alt="Summary icon"
-                  width={30}
-                  height={30}
-                />
-                <p>{summary.title}</p>
-              </div>
-            </Button>
-          );
-        })}
-      </div>
-    </div>
-  );
+    );
+  } else {
+    return <Skeleton className="w-[15rem] h-40 rounded-sm"></Skeleton>;
+  }
 };
 
 export default Sidebar;

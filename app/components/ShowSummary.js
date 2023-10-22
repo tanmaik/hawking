@@ -8,6 +8,7 @@ import ReactCardFlip from "react-card-flip";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Speech from "react-text-to-speech";
 
 const Card = ({ questionText, answerText }) => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -42,7 +43,9 @@ const ShowSummary = ({ sid }) => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const settings = {
     dots: true,
-    speed: 0,
+    autoplay: true,
+    autoplaySpeed: 2500,
+    pauseOnHover: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     infinite: false,
@@ -76,16 +79,21 @@ const ShowSummary = ({ sid }) => {
       <div className="w-[40rem] mt-2">
         <div className="flex items-center justify-start space-x-2">
           <Image src={summary.icon} width={30} height={30} alt="Icon" />
-          <h1 className="text-2xl font-semibold underline underline-offset-4">
+          <h1 className="text-2xl font-semibold underline underline-offset-4 hover:bg-gradient-to-b from-blue-400 to-pink-500 hover:text-transparent hover:bg-clip-text transition-all">
             {summary.title}
           </h1>
         </div>
 
-        <h3 className="font-semibold mt-6">In Hawking{"'"}s words</h3>
-
+        <div className="flex space-x-4 items-center mt-6">
+          <h3 className="font-semibold">In Hawking{"'"}s words</h3>
+          <Speech text={summary.summary} />
+        </div>
         <p className="mt-2">{summary.summary}</p>
 
-        <h3 className="font-semibold mt-6">In simple terms</h3>
+        <div className="flex space-x-4 items-center mt-6">
+          <h3 className="font-semibold">In simple terms</h3>
+          <Speech text={summary.easySummary} />
+        </div>
 
         <p className="mt-2">{summary.easySummary}</p>
         <h3 className="font-semibold mt-6">Flashcards</h3>
