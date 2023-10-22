@@ -14,7 +14,7 @@ const crimson = Crimson_Pro({
   subsets: ["latin"],
 });
 
-const Sidebar = ({ changeSummary }) => {
+const Sidebar = ({ changeSummary, shownSummary }) => {
   const [name, setName] = useState(null);
   const [pastSummaries, setPastSummaries] = useState([]);
   const [greeting, setGreeting] = useState("");
@@ -53,8 +53,7 @@ const Sidebar = ({ changeSummary }) => {
           method: "POST",
           url: "https://api.openai.com/v1/chat/completions",
           headers: {
-            Authorization:
-              "Bearer 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",
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
           },
           data: {
             model: "gpt-4",
@@ -113,7 +112,7 @@ const Sidebar = ({ changeSummary }) => {
       }
     };
     fetchData();
-  }, [session.user.name]);
+  }, [session.user.name, shownSummary]);
   return (
     <div className="w-[15rem] pr-2">
       <div className={crimson.className}>

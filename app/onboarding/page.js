@@ -69,14 +69,14 @@ const OnboardingFirst = ({
         improve your experience.
       </p>
       <div className="h-4"></div>
-      <Label htmlfor="fname">first name</Label>
+      <Label htmlFor="fname">first name</Label>
       <Input
         id="fnmae"
         placeholder="Stephen"
         onChange={handleFirstNameChange}
         value={firstName}
       />
-      <Label htmlfor="lname">last name</Label>
+      <Label htmlFor="lname">last name</Label>
       <Input
         id="lname"
         placeholder="Hawking"

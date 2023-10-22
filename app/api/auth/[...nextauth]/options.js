@@ -23,7 +23,7 @@ export const options = {
           let user;
 
           await axios({
-            url: `${process.env.BACKEND_ENDPOINT}/api/users/signup`,
+            url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/api/users/signup`,
             method: "POST",
             headers: {},
             data: {
@@ -47,7 +47,7 @@ export const options = {
         console.log("this is not a new user ");
         let user;
         await axios({
-          url: `${process.env.BACKEND_ENDPOINT}/api/users/login`,
+          url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/api/users/login`,
           method: "POST",
           headers: {},
           data: {

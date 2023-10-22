@@ -4,10 +4,12 @@ import axios from "axios";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { Progress } from "@/components/ui/progress";
+import { useRouter } from "next/navigation";
 
 const UploadBox = ({ changeSummary }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [progress, setProgress] = useState(13);
+  const [progress, setProgress] = useState(3);
+  const router = useRouter();
 
   const { data: session } = useSession();
   let file = null;
@@ -21,9 +23,9 @@ const UploadBox = ({ changeSummary }) => {
           clearInterval(interval);
           return 100;
         }
-        return prevProgress + 0.5;
+        return prevProgress + 0.1;
       });
-    }, 400);
+    }, 80);
     file = event.target.files[0];
     event.preventDefault();
     const formData = new FormData();
@@ -40,8 +42,12 @@ const UploadBox = ({ changeSummary }) => {
     );
     const data = await response.data;
     setIsLoading(false);
+    setTimeout(() => {
+      router.refresh();
+    }, 1000);
     changeSummary(data.id, false);
   };
+
   if (!isLoading) {
     return (
       <>
@@ -72,9 +78,11 @@ const UploadBox = ({ changeSummary }) => {
     );
   } else {
     return (
-      <div className="w-[40rem] rounded-lg border-[1px] hover:bg-gray-100 transition-all">
-        <Progress progress={progress} />
-        <h2>Taking off! We are {progress}% of the way therE!</h2>
+      <div className="w-[40rem]">
+        <Progress value={progress} />
+        <h2 className="font-semibold text-md mt-4">
+          Taking off! We are {parseInt(progress)}% of the way there
+        </h2>
       </div>
     );
     // fix this skeleton component

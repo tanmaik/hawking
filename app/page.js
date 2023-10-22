@@ -48,7 +48,7 @@ export default function Home() {
       }
     };
     fetchData();
-  }, [session.user.name]);
+  }, [session.user.name, shownSummary]);
 
   if (session) {
     return (
@@ -78,7 +78,10 @@ export default function Home() {
         </div>
         <div className="flex justify-center items-center mt-28">
           <div className="w-[60rem] flex justify-between px-6">
-            <Sidebar changeSummary={changeSummaryHandler} />
+            <Sidebar
+              changeSummary={changeSummaryHandler}
+              shownSummary={shownSummary}
+            />
 
             {showUpload ? (
               <UploadBox changeSummary={changeSummaryHandler} />
