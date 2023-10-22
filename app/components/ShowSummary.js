@@ -1,7 +1,14 @@
+"use client";
+
+import { useState, useEffect } from "react";
+
 const ShowSummary = ({ sid }) => {
-  return <div className="w-[26rem] w-full px-6">
+  const [summary, setSummary] = useState(null);
+  useEffect(() => {
+
     
-  </div>;
+  }, []);
+  return <div className="w-[26rem] w-full px-6"></div>;
 };
 
 export default ShowSummary;
