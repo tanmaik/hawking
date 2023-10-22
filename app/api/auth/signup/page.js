@@ -71,16 +71,15 @@ const SignUp = () => {
             </span>{" "}
             learner
           </p>
-          <Label className="text-gray-600">email</Label>
           <Input
             id="email"
             type="email"
             onChange={emailChangeHandler}
             value={email}
             placeholder="stephen@cambridge.edu"
-            className="drop-shadow-sm mb-2"
+            className="drop-shadow-sm mb-2 mt-4"
           />
-          <Label className="text-gray-600">password</Label>
+
           <Input
             id="password"
             type="password"
@@ -89,8 +88,12 @@ const SignUp = () => {
             placeholder="••••••••••"
             className="drop-shadow-sm mb-6"
           />
-          <Button asChild className="w-full" onClick={onFormSubmitHandler}>
-            <p>Continue {"->"}</p>
+          <Button
+            asChild
+            className="w-full hover:cursor-pointer"
+            onClick={onFormSubmitHandler}
+          >
+            <p>Show me around {"->"}</p>
           </Button>
           <Link href="/api/auth/signin">
             <p className="mt-4 text-sm font-medium text-gray-400 w-full text-center">

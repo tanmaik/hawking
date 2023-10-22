@@ -15,21 +15,26 @@ const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   async function onFormSubmitHandler(event) {
     event.preventDefault();
     setIsLoading(true);
+
     const res = await signIn("Credentials", {
       callbackUrl: "/",
       email: email,
       password: password,
       newUser: false,
     });
-    console.log(res);
+
     if (!res.error) {
+      console.log("passed in comp");
       setIsLoading(false);
     } else {
+      console.log("failed in comp");
+
       setIsLoading(false);
-      alert("There was an error.");
+      setError(res.error);
     }
   }
 
@@ -73,13 +78,20 @@ const SignIn = () => {
           />
 
           {isLoading ? (
-            <Button className="w-full" onClick={onFormSubmitHandler} disabled>
+            <Button
+              className="w-full hover:cursor-pointer"
+              onClick={onFormSubmitHandler}
+              disabled
+            >
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
 
               <p>Continue {"->"}</p>
             </Button>
           ) : (
-            <Button className="w-full" onClick={onFormSubmitHandler}>
+            <Button
+              className="w-full hover:cursor-pointer"
+              onClick={onFormSubmitHandler}
+            >
               <p>Continue {"->"}</p>
             </Button>
           )}
