@@ -1,5 +1,9 @@
 # Hawking.
 
+[developed by tanmai](https://github.com/tanmaik)
+[designed by johanna](https://github.com/johannalohmus)
+[developed & written by suraj](https://github.com/surajvaddi)
+
 ## Inspiration
 
 “The nerves that controlled his muscles were failing and he became trapped in his body, but his mind was still free.” BBC reporter James Gallagher evokes the lack of emphasis on untapped scientists due to a lack of equitable education opportunities. At least **one in five children in the U.S.** have learning and thinking differences such as ADHD or dyslexia, amounting to over **four million children** younger than eighteen. We hope to level the playing field so that brilliant minds such as Professor Stephen Hawking’s do not go unrealized.
