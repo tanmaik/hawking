@@ -18,24 +18,32 @@ export const options = {
       },
       async authorize(credentials, req) {
         console.log(typeof credentials.newUser);
+        console.log(
+          process.env.NEXT_PUBLIC_ACCESS_TOKEN +
+            " this is the public access otken "
+        );
         if (credentials.newUser === "true") {
           console.log("THIS IS A NEW USER");
           let user;
 
-          await axios({
-            url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/api/users/signup`,
-            method: "POST",
-            headers: {},
-            data: {
-              email: credentials.email,
-              password: credentials.password,
-            },
-          })
+          await axios
+            .post(
+              `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/api/users/signup`,
+              {
+                email: credentials.email,
+                password: credentials.password,
+              },
+              {
+                headers: {
+                  ACCESS_TOKEN: process.env.NEXT_PUBLIC_ACCESS_TOKEN,
+                },
+              }
+            )
             .then(async (res) => {
               user = await res.data.user;
             })
             .catch((err) => {
-              return null;
+              console.log("WE broke" + err);
             });
           user = {
             name: user.id,
@@ -49,7 +57,9 @@ export const options = {
         await axios({
           url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/api/users/login`,
           method: "POST",
-          headers: {},
+          headers: {
+            ACCESS_TOKEN: process.env.NEXT_PUBLIC_ACCESS_TOKEN,
+          },
           data: {
             email: credentials.email,
             password: credentials.password,

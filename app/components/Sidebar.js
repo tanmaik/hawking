@@ -35,7 +35,12 @@ const Sidebar = ({ changeSummary, shownSummary }) => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/users/getUser/${session.user.name}`
+          `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/api/users/getUser/${session.user.name}`,
+          {
+            headers: {
+              ACCESS_TOKEN: process.env.NEXT_PUBLIC_ACCESS_TOKEN,
+            },
+          }
         );
         return response.data;
       } catch (err) {
@@ -85,7 +90,11 @@ const Sidebar = ({ changeSummary, shownSummary }) => {
     const fetchSummaryData = async (sumId) => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/summary/${sumId}`
+          `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/api/summary/${sumId}`, {
+            headers: {
+              ACCESS_TOKEN: process.env.NEXT_PUBLIC_ACCESS_TOKEN,
+            }
+          }
         );
         return response.data;
       } catch (err) {

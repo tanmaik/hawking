@@ -56,7 +56,12 @@ const ShowSummary = ({ sid }) => {
     const fetchSummaryData = async (sid) => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/summary/${sid}`
+          `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/api/summary/${sid}`,
+          {
+            headers: {
+              ACCESS_TOKEN: process.env.NEXT_PUBLIC_ACCESS_TOKEN,
+            },
+          }
         );
         return response.data;
       } catch (err) {
@@ -118,11 +123,6 @@ const ShowSummary = ({ sid }) => {
         <p className="mb-4 text-sm font-semibold text-gray-500">
           Hover beneath the questions for some magic!{" "}
         </p>
-
-        {/* <div className="flex space-x-2 items-center">
-          <SparklesIcon className="h-4 w-4 text-yellow-600" />
-          <p className="mt-2">Hover beneath the questions for some magic! </p>
-        </div> */}
 
         {summary.questions.map((question) => {
           return (

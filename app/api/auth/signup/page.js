@@ -41,7 +41,7 @@ const SignUp = () => {
   };
   return (
     <>
-      <div className="absolute flex w-full justify-center top-40">
+      <div className="absolute flex w-full justify-center top-20">
         <div className="">
           <div className="w-full flex justify-center">
             {" "}
@@ -60,7 +60,7 @@ const SignUp = () => {
         </div>
       </div>
       <div className="flex items-center justify-center text-center h-screen ">
-        <div className="border- w-[26rem] ">
+        <div className="w-[26rem] ">
           <h2 className="font-semibold text-2xl mb-2">
             Join the learning squad
           </h2>

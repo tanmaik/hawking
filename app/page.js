@@ -29,7 +29,12 @@ export default function Home() {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/users/getUser/${session.user.name}`
+          `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/api/users/getUser/${session.user.name}`,
+          {
+            headers: {
+              ACCESS_TOKEN: process.env.NEXT_PUBLIC_ACCESS_TOKEN,
+            },
+          }
         );
         return response.data;
       } catch (err) {

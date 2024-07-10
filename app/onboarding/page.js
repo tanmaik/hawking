@@ -319,10 +319,6 @@ const Onboarding = () => {
                 }}
                 handleBackClick={() => setStep(2)}
                 handleClick={async () => {
-                  console.log(synthesizing);
-                  console.log(test);
-                  console.log(recall);
-                  console.log(understanding);
                   let goals = [];
                   if (synthesizing) {
                     goals.push("synthesizing");
@@ -336,20 +332,24 @@ const Onboarding = () => {
                   if (understanding) {
                     goals.push("understanding");
                   }
-
+                  console.log(session);
                   await axios({
-                    url: `http://localhost:5000/api/users/changeGoals/${session.user.name}`,
+                    url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/api/users/changeGoals/${session.user.name}`,
                     method: "PATCH",
-                    headers: {},
+                    headers: {
+                      ACCESS_TOKEN: process.env.NEXT_PUBLIC_ACCESS_TOKEN,
+                    },
                     data: {
                       goals: goals,
                     },
                   });
 
                   await axios({
-                    url: `http://localhost:5000/api/users/addName/${session.user.name}`,
+                    url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/api/users/addName/${session.user.name}`,
                     method: "POST",
-                    headers: {},
+                    headers: {
+                      ACCESS_TOKEN: process.env.NEXT_PUBLIC_ACCESS_TOKEN,
+                    },
                     data: {
                       first: firstName,
                       last: lastName,

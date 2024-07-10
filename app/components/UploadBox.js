@@ -17,7 +17,7 @@ const UploadBox = ({ changeSummary }) => {
 
   const submitFile = async (event) => {
     setIsLoading(true);
-    handleEvent();
+
     // start increasing progress bar
     const interval = setInterval(() => {
       setProgress((prevProgress) => {
@@ -34,10 +34,11 @@ const UploadBox = ({ changeSummary }) => {
     formData.append("file", file);
 
     const response = await axios.patch(
-      `http://localhost:5000/api/summary/upload/${session.user.name}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/api/summary/upload/${session.user.name}`,
       formData,
       {
         headers: {
+          ACCESS_TOKEN: process.env.NEXT_PUBLIC_ACCESS_TOKEN,
           "Content-Type": "multipart/form-data",
         },
       }
