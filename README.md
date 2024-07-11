@@ -1,8 +1,8 @@
 # Hawking.
 
-[developed by tanmai](https://github.com/tanmaik)
-[designed by johanna](https://github.com/johannalohmus)
-[developed & written by suraj](https://github.com/surajvaddi)
+[design by johanna](https://github.com/johannalohmus)
+[development & README by suraj](https://github.com/surajvaddi)
+[development by tanmai](https://github.com/tanmaik)
 
 ## Inspiration
 
